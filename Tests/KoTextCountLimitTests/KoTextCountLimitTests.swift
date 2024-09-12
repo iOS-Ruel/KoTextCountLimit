@@ -68,4 +68,21 @@ final class KoTextCountLimitTests: XCTestCase {
         
         XCTAssertTrue(shouldChange, "한글을 백스페이스를 올바르게 처리해야함")
     }
+    
+    
+    func testShouldNotAllowConsonantExceedingLimit() {
+        let textField = UITextField()
+        textField.text = "ㅇㅇㅇㅇㅇㅇ"
+//        textField.text = "ㅐㅐㅐㅐㅐㅐ"
+
+        // 현재 글자 수는 5글자. 제한은 6글자.
+        // 자음만 입력했을 때 제한을 넘는지 확인
+        let shouldChange = textCountLimit.shouldChangeText(for: textField, in: NSRange(location: 5, length: 0),
+                                                           replacementText: "ㄱ", maxCharacterLimit: 6)
+        
+        XCTAssertFalse(shouldChange, "글자 수 제한을 초과했을 때 자음 입력을 허용하지 않아야 함")
+//        XCTAssertTrue(shouldChange, "글자 수 제한을 초과했을 때 자음 입력을 허용하지 않아야 함")
+    }
+    
+    
 }

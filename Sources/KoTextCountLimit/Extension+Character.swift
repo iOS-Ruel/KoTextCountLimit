@@ -11,4 +11,8 @@ extension Character {
     var isConsonant: Bool {
         return String(self).isConsonant
     }
+    
+    var isVowel: Bool {
+        return String(self).isVowel
+    }
 }
